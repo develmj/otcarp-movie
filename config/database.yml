@@ -1,0 +1,19 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: dev_otcarp_db
+  username: root
+  password: root
+  host: 127.0.0.1
+  port: 3306
+  socket: /tmp/mysql.sock
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: test_otcarp_db
+  username: root
+  password: root
+  host: 127.0.0.1
+  port: 3306
+  socket: /tmp/mysql.sock
