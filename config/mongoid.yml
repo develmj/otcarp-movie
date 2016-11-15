@@ -1,0 +1,6 @@
+development:
+  clients:
+    default:
+      database: dev_mongoid
+      hosts:
+        - localhost:27017
