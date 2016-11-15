@@ -20252,3 +20252,7 @@ MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"ratings", "fi
 MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.000495439s
 MONGODB | localhost:27017 | dev_mongoid.killCursors | STARTED | {"killCursors"=>"ratings", "cursors"=>[7901573057890485]}
 MONGODB | localhost:27017 | dev_mongoid.killCursors | SUCCEEDED | 7.5882e-05s
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT  `movies`.* FROM `movies` WHERE `movies`.`title` = 'ede' LIMIT 1[0m
+  [1m[35mMovie Load (0.6ms)[0m  SELECT `movies`.* FROM `movies`
+  [1m[36mMovie Load (0.7ms)[0m  [1mSELECT  `movies`.* FROM `movies` WHERE `movies`.`id` = 1 LIMIT 10 OFFSET 10[0m
+  [1m[35mMovie Load (0.6ms)[0m  SELECT  `movies`.* FROM `movies` WHERE `movies`.`id` = 1 LIMIT 10 OFFSET 0
