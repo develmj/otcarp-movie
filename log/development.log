@@ -1,0 +1,213 @@
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (8.5ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateMovies (20161115172005)
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateMovies (20161115172005)
+  [1m[35m (3.0ms)[0m  CREATE TABLE `movies` (`id` int(11) auto_increment PRIMARY KEY, `company` text, `countries` text, `filming_locations` text, `genres` text, `languages` text, `length` int(11), `mpaa_rating` varchar(5), `plot` text, `plot_summary` text, `plot_synopsis` text, `poster` varchar(4083), `rating` float, `release_date` datetime, `tagline` text, `trailer_url` varchar(4083), `votes` int(11), `year` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115172005')
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePeople (20161115174143)
+  [1m[35m (2.1ms)[0m  CREATE TABLE `people` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `person_class` varchar(255), `person_type` varchar(255), `country` varchar(255), `language` varchar(255), `dob` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115174143')
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+Migrating to CreateUsers (20161115174538)
+  [1m[35m (1.9ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `limit` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115174538')
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePersonsMovies (20161115175100)
+  [1m[35m (1.9ms)[0m  CREATE TABLE `persons_movies` (`id` int(11) auto_increment PRIMARY KEY, `person_id` int(11), `movie_id` int(11), `relation_capacity` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115175100')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'movies'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `movies`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'people'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `people`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'persons_movies'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `persons_movies`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36m (2.9ms)[0m  [1mDROP DATABASE IF EXISTS `dev_otcarp_db`[0m
+  [1m[35m (29.4ms)[0m  DROP DATABASE IF EXISTS `test_otcarp_db`
+  [1m[36m (0.2ms)[0m  [1mCREATE DATABASE `dev_otcarp_db` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`[0m
+  [1m[35m (0.3ms)[0m  CREATE DATABASE `test_otcarp_db` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (1.9ms)[0m  [1mCREATE TABLE `movies` (`id` int(11) auto_increment PRIMARY KEY, `company` text, `countries` text, `filming_locations` text, `genres` text, `languages` text, `length` int(11), `mpaa_rating` varchar(5), `plot` text, `plot_summary` text, `plot_synopsis` text, `poster` varchar(4083), `rating` float(24), `release_date` datetime, `tagline` text, `trailer_url` varchar(4083), `votes` int(11), `year` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE `people` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `person_class` varchar(255), `person_type` varchar(255), `country` varchar(255), `language` varchar(255), `dob` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (2.1ms)[0m  [1mCREATE TABLE `persons_movies` (`id` int(11) auto_increment PRIMARY KEY, `person_id` int(11), `movie_id` int(11), `relation_capacity` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `limit` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (4.9ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36m (0.3ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (1.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115175100')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115172005')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115174143')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115174538')[0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE `movies` (`id` int(11) auto_increment PRIMARY KEY, `company` text, `countries` text, `filming_locations` text, `genres` text, `languages` text, `length` int(11), `mpaa_rating` varchar(5), `plot` text, `plot_summary` text, `plot_synopsis` text, `poster` varchar(4083), `rating` float(24), `release_date` datetime, `tagline` text, `trailer_url` varchar(4083), `votes` int(11), `year` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE `people` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `person_class` varchar(255), `person_type` varchar(255), `country` varchar(255), `language` varchar(255), `dob` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE `persons_movies` (`id` int(11) auto_increment PRIMARY KEY, `person_id` int(11), `movie_id` int(11), `relation_capacity` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `limit` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB
+  [1m[36m (5.4ms)[0m  [1mCREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM `schema_migrations`
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115175100')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115172005')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115174143')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115174538')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36m (0.4ms)[0m  [1mDROP DATABASE IF EXISTS `dev_otcarp_db`[0m
+  [1m[35m (3.5ms)[0m  DROP DATABASE IF EXISTS `test_otcarp_db`
+  [1m[36m (0.2ms)[0m  [1mCREATE DATABASE `dev_otcarp_db` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`[0m
+  [1m[35m (0.1ms)[0m  CREATE DATABASE `test_otcarp_db` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE `movies` (`id` int(11) auto_increment PRIMARY KEY, `company` text, `countries` text, `filming_locations` text, `genres` text, `languages` text, `length` int(11), `mpaa_rating` varchar(5), `plot` text, `plot_summary` text, `plot_synopsis` text, `poster` varchar(4083), `rating` float(24), `release_date` datetime, `tagline` text, `trailer_url` varchar(4083), `votes` int(11), `year` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE `people` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `person_class` varchar(255), `person_type` varchar(255), `country` varchar(255), `language` varchar(255), `dob` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE `persons_movies` (`id` int(11) auto_increment PRIMARY KEY, `person_id` int(11), `movie_id` int(11), `relation_capacity` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.4ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `limit` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (5.7ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36m (0.2ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115175100')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115172005')[0m
+  [1m[35m (0.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115174143')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115174538')[0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE `movies` (`id` int(11) auto_increment PRIMARY KEY, `company` text, `countries` text, `filming_locations` text, `genres` text, `languages` text, `length` int(11), `mpaa_rating` varchar(5), `plot` text, `plot_summary` text, `plot_synopsis` text, `poster` varchar(4083), `rating` float(24), `release_date` datetime, `tagline` text, `trailer_url` varchar(4083), `votes` int(11), `year` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE `people` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `person_class` varchar(255), `person_type` varchar(255), `country` varchar(255), `language` varchar(255), `dob` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (2.0ms)[0m  CREATE TABLE `persons_movies` (`id` int(11) auto_increment PRIMARY KEY, `person_id` int(11), `movie_id` int(11), `relation_capacity` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (1.9ms)[0m  [1mCREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `limit` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (1.6ms)[0m  CREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB
+  [1m[36m (4.9ms)[0m  [1mCREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) [0m
+  [1m[35m (0.3ms)[0m  SELECT version FROM `schema_migrations`
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115175100')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115172005')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20161115174143')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20161115174538')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (5.5ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateMovies (20161115172005)
+  [1m[35m (2.0ms)[0m  CREATE TABLE `movies` (`id` int(11) auto_increment PRIMARY KEY, `title` text, `also_known_as` text, `url` varchar(4083), `company` text, `countries` text, `filming_locations` text, `genres` text, `languages` text, `length` int(11), `mpaa_rating` varchar(5), `plot` text, `plot_summary` text, `plot_synopsis` text, `poster` varchar(4083), `rating` float, `release_date` datetime, `tagline` text, `trailer_url` varchar(4083), `votes` int(11), `year` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115172005')
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePeople (20161115174143)
+  [1m[35m (1.7ms)[0m  CREATE TABLE `people` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `person_class` varchar(255), `person_type` varchar(255), `country` varchar(255), `language` varchar(255), `dob` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115174143')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateUsers (20161115174538)
+  [1m[35m (1.9ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `limit` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115174538')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePersonsMovies (20161115175100)
+  [1m[35m (2.5ms)[0m  CREATE TABLE `persons_movies` (`id` int(11) auto_increment PRIMARY KEY, `person_id` int(11), `movie_id` int(11), `relation_capacity` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115175100')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'movies'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `movies`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'people'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `people`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'persons_movies'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `persons_movies`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `movies` (`title`, `created_at`, `updated_at`) VALUES ('mj', '2016-11-15 17:56:22', '2016-11-15 17:56:22')
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mMovie Load (0.3ms)[0m  SELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1
+  [1m[36mMovie Load (0.6ms)[0m  [1mSELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1[0m
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1[0m
+  [1m[35mMovie Load (0.3ms)[0m  SELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1[0m
+  [1m[35mMovie Load (0.6ms)[0m  SELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1[0m
+  [1m[35mPerson Load (0.4ms)[0m  SELECT `people`.* FROM `people` INNER JOIN `persons_movies` ON `people`.`id` = `persons_movies`.`person_id` WHERE `persons_movies`.`movie_id` = 1
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1[0m
+  [1m[35mPerson Load (0.4ms)[0m  SELECT `people`.* FROM `people` INNER JOIN `persons_movies` ON `people`.`id` = `persons_movies`.`person_id` WHERE `persons_movies`.`movie_id` = 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `people` (`first_name`, `created_at`, `updated_at`) VALUES ('mj', '2016-11-15 17:58:36', '2016-11-15 17:58:36')
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mPerson Load (0.3ms)[0m  SELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1
+  [1m[36mPerson Load (0.3ms)[0m  [1mSELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1[0m
+  [1m[35mPerson Load (0.3ms)[0m  SELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1
+  [1m[36mPerson Load (0.3ms)[0m  [1mSELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1[0m
+  [1m[35mMovie Load (0.5ms)[0m  SELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1
+  [1m[36mPerson Load (0.3ms)[0m  [1mSELECT `people`.* FROM `people` INNER JOIN `persons_movies` ON `people`.`id` = `persons_movies`.`person_id` WHERE `persons_movies`.`movie_id` = 1[0m
+  [1m[35mPerson Load (0.3ms)[0m  SELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1
+  [1m[36mPerson Load (0.3ms)[0m  [1mSELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1[0m
+  [1m[35mPerson Load (0.6ms)[0m  SELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1
+  [1m[36mPerson Load (0.3ms)[0m  [1mSELECT  `people`.* FROM `people`  ORDER BY `people`.`id` DESC LIMIT 1[0m
+  [1m[35mMovie Load (0.4ms)[0m  SELECT `movies`.* FROM `movies` INNER JOIN `persons_movies` ON `movies`.`id` = `persons_movies`.`movie_id` WHERE `persons_movies`.`person_id` = 1
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT  `movies`.* FROM `movies`  ORDER BY `movies`.`id` DESC LIMIT 1[0m
+  [1m[35mPerson Load (0.3ms)[0m  SELECT `people`.* FROM `people` INNER JOIN `persons_movies` ON `people`.`id` = `persons_movies`.`person_id` WHERE `persons_movies`.`movie_id` = 1
