@@ -1,7 +1,7 @@
 module Api
   module V1
-    module Movie
-      class UserpartController < API::V1::MOVIE::MovieBaseController
+    module Bdmi
+      class UserpartController < API::V1::BDMI::BdmiBaseController
         def add_user
           required(params, :email)
           show_response(User.new_entry(params))
