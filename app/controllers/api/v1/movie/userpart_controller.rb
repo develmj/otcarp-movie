@@ -1,7 +1,7 @@
 module Api
   module V1
-    module Admin
-      class UserpartController < API::V1::ADMIN::AdminBaseController
+    module Movie
+      class UserpartController < API::V1::MOVIE::MovieBaseController
         def add_user
           required(params, :email)
           show_response(User.new_entry(params))

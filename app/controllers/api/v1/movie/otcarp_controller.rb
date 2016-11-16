@@ -1,7 +1,7 @@
 module Api
   module V1
-    module Admin
-      class OtcarpController < API::V1::ADMIN::AdminBaseController
+    module Movie
+      class OtcarpController < API::V1::MOVIE::MovieBaseController
 
         def add_movie
           required(params, :title, :genres)
