@@ -36,7 +36,8 @@ class Movie < ActiveRecord::Base
   end
 
   def self.update_movie_details(params)
-    return { status: nil, msg: "Need the title to update the movie!" } if params.to_a.empty?
+    return { status: nil, msg: "Need the title to update the movie!" } if params.to_a.empty? or not params.is_a?(Hash)
+    return { status: nil, msg: "No title given!" } unless params[:title]
 
     attr_list = Movie.attr_list
     movie = Movie.find_by_title(params[:title])
@@ -70,8 +71,9 @@ class Movie < ActiveRecord::Base
 
   def self.add_cast(params)
     return { status: nil, msg: "Need the title to find the movie!" } if params.to_a.empty?
+    return { status: nil, msg: "No title given!" } unless params[:title]
 
-    movie = Movie.where(title: params[:title])
+    movie = Movie.find_by_title(params[:title])
     if movie
       cast = Person.new_cast(params)
       if cast
@@ -85,9 +87,10 @@ class Movie < ActiveRecord::Base
   end
 
   def self.add_crew(params)
-    return { status: nil, msg: "Need the title to find the movie!" } if params.to_a.empty?
+    return { status: nil, msg: "Need the title to find the movie!" } if params.to_a.empty? or not params.is_a?(Hash)
+    return { status: nil, msg: "No title given!" } unless params[:title]
 
-    movie = Movie.where(title: params[:title])
+    movie = Movie.find_by_title(params[:title])
     if movie
       crew = Person.new_crew(params)
       if crew
@@ -97,6 +100,53 @@ class Movie < ActiveRecord::Base
       end
     else
       return { status: nil, msg: "Couldn't find the movie!" }
+    end
+  end
+
+  def self.get_average_ratings(params)
+    return { status: nil, msg: "Need the title to find the movie!" } if params.to_a.empty? or not params.is_a?(Hash)
+    return { status: nil, msg: "No title given!" } unless params[:title]
+
+    movie = Movie.find_by_title(params[:title])
+    if movie
+      rating = Ratings.get_average_ratings(movie.id)
+      if rating
+        return { status: true, msg: "Movie found. Ratings as follows", rating: rating }
+      else
+        return { status: nil, msg: "Something went wrong with getting the ratings!" }
+      end
+    else
+      return { status: nil, msg: "No such movie found!" }
+    end
+  end
+
+  def self.get_reviews(params)
+    return { status: nil, msg: "Need the title to find the movie!" } if params.to_a.empty? or not params.is_a?(Hash)
+    return { status: nil, msg: "No title given!" } unless params[:title]
+
+    movie = Movie.find_by_title(params[:title])
+    if movie
+      reviews = Reviews.get_paginated_reviews(movie.id, params[:page_size], params[:cur_page])
+      if reviews
+        return { status: true, msg: "Movie found. Reviews as follows", reviews: reviews[:data], current_page: reviews[:cur_page], page_size: reviews[:page_size] }
+      else
+        return { status: nil, msg: "Something went wrong with getting the reviews!" }
+      end
+    else
+      return { status: nil, msg: "No such movie found!" }
+    end
+  end
+
+  def self.get_similar(rated_movies)
+    return nil if rated_movies.to_a.empty?
+
+    genres = Movie.where(id: rated_movies).map(&:genres).compact.distinct
+    similar_movies = Movie.where(genre: genres)
+
+    if similar_movies
+      return { status: true, msg: "Similar movies found", payload: similar_movies }
+    else
+      return { status: nil, msg: "No movies found" }
     end
   end
 

@@ -14,14 +14,19 @@ class UserpartController < ApplicationController
     show_response(User.add_movie_review(params))
   end
 
-  def get_rate_movie
+  def get_movie_ratings
     required(params, :title)
+    show_response(Movie.get_average_ratings(params))
+  end
+
+  def get_movie_reviews
+    required(params, :title)
+    show_response(Movie.get_reviews(params))
   end
 
   def get_recommended_movies
-  end
-
-  def get_recommended_movies_for
+    required(params, :email)
+    show_response(User.get_recommended_movies(params))
   end
 
   def upvote_review

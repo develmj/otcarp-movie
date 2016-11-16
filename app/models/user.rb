@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(params)
-    return { status: nil, msg: "Need some detail to search for a user!" } if params.to_a.empty?
+    return { status: nil, msg: "Need some detail to search for a user!" } if params.to_a.empty? or params.is_a?(Hash)
 
     attr_list = User.attr_list
     attr_map = attr_list.inject({}) { |acc,attr| acc[attr] = params[attr] if params[attr]; acc }
@@ -52,5 +52,22 @@ class User < ActiveRecord::Base
 
     return { status: true, msg: "Review has been added to movie #{movie.title}" } if resp
     return { status: nil, msg: "Error occurred while adding a review to #{movie.title}" }
+  end
+
+  def self.get_recommended_movies(params)
+    return { status: nil, msg: "Need some detail to search for a user!" } if params.to_a.empty or not params.is_a?(Hash)
+    return { status: nil, msg: "No email id given to search for the user!" } unless params[:email]
+
+    user = User.find_by_email(params[:email])
+    if user
+      rated_movies = Rating.get_user_movies(user.id)
+      if rated_movies.empty?
+        return { status: true, msg: "User has not rated anything. Getting top 10 movies ever rated", payload: Rating.get_best_movies }
+      else
+        return { status: true, msg: "Recommended movies as follows", payload: Movie.get_similar(rated_movies) }
+      end
+    else
+      return { status: nil, msg: "No such user found. Can't recommend anything" }
+    end
   end
 end

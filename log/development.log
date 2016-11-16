@@ -20341,3 +20341,536 @@ MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"reviews",
 MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001039683s
 MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"reviews", "documents"=>[{"_id"=>BSON::ObjectId('582bc8eae8cb911d123063c4'), "user_id"=>1, "movie_id"=>1, "review"=>"THis is a whole new world.\nI am not sure of anything anymore", "vote"=>0}], "ordered"=>true}
 MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00043644s
+  [1m[36m (2.7ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (7.2ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateMovies (20161115172005)
+  [1m[35m (2.3ms)[0m  CREATE TABLE `movies` (`id` int(11) auto_increment PRIMARY KEY, `title` text, `also_known_as` text, `url` varchar(4083), `company` text, `countries` text, `filming_locations` text, `genres` text, `languages` text, `length` int(11), `mpaa_rating` varchar(5), `plot` text, `plot_summary` text, `plot_synopsis` text, `poster` varchar(4083), `rating` float, `release_date` datetime, `tagline` text, `trailer_url` varchar(4083), `votes` int(11), `year` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115172005')
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePeople (20161115174143)
+  [1m[35m (3.0ms)[0m  CREATE TABLE `people` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `person_class` varchar(255), `person_type` varchar(255), `country` varchar(255), `language` varchar(255), `dob` datetime, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115174143')
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Migrating to CreateUsers (20161115174538)
+  [1m[35m (2.9ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `email` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115174538')
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePersonsMovies (20161115175100)
+  [1m[35m (2.0ms)[0m  CREATE TABLE `persons_movies` (`id` int(11) auto_increment PRIMARY KEY, `person_id` int(11), `movie_id` int(11), `relation_capacity` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115175100')
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'movies'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `movies`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'people'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `people`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'persons_movies'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `persons_movies`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `users`
+MONGODB | Adding localhost:27017 to the cluster.
+MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"reviews", "filter"=>{}, "limit"=>-1}
+MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.0010428s
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `movies` (`title`, `created_at`, `updated_at`) VALUES ('1', '2016-11-16 04:45:58', '2016-11-16 04:45:58')
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO `users` (`first_name`, `last_name`, `created_at`, `updated_at`) VALUES ('mj', 'mj', '2016-11-16 04:46:17', '2016-11-16 04:46:17')[0m
+  [1m[35m (1.0ms)[0m  COMMIT
+MONGODB | Adding localhost:27017 to the cluster.
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ab'), "user_id"=>1, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.010677954s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ac'), "user_id"=>2, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00054155s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ad'), "user_id"=>3, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00032367500000000005s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ae'), "user_id"=>4, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00048696499999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8af'), "user_id"=>5, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000326079s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b0'), "user_id"=>6, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00035936s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b1'), "user_id"=>7, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000335277s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b2'), "user_id"=>8, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000351742s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b3'), "user_id"=>9, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000332445s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b4'), "user_id"=>10, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000360183s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b5'), "user_id"=>11, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00035940799999999997s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b6'), "user_id"=>12, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000655141s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b7'), "user_id"=>13, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00035003199999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b8'), "user_id"=>14, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00072694s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8b9'), "user_id"=>15, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001153352s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ba'), "user_id"=>16, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000639024s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8bb'), "user_id"=>17, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000417759s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8bc'), "user_id"=>18, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00032160800000000003s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8bd'), "user_id"=>19, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001025218s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8be'), "user_id"=>20, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000333758s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8bf'), "user_id"=>21, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000975909s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c0'), "user_id"=>22, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00033754799999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c1'), "user_id"=>23, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000321079s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c2'), "user_id"=>24, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000324288s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c3'), "user_id"=>25, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000309168s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c4'), "user_id"=>26, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00031285300000000004s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c5'), "user_id"=>27, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005659209999999999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c6'), "user_id"=>28, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00026597700000000003s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c7'), "user_id"=>29, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000328368s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c8'), "user_id"=>30, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000323968s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8c9'), "user_id"=>31, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00038262999999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ca'), "user_id"=>32, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000459051s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8cb'), "user_id"=>33, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000364525s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8cc'), "user_id"=>34, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000349409s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8cd'), "user_id"=>35, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.002451439s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ce'), "user_id"=>36, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000338735s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8cf'), "user_id"=>37, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000318428s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d0'), "user_id"=>38, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00035376900000000003s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d1'), "user_id"=>39, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001724754s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d2'), "user_id"=>40, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000313571s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d3'), "user_id"=>41, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000317725s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d4'), "user_id"=>42, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00029561299999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d5'), "user_id"=>43, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000320828s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d6'), "user_id"=>44, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000334819s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d7'), "user_id"=>45, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000330571s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d8'), "user_id"=>46, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000354417s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8d9'), "user_id"=>47, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000321264s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8da'), "user_id"=>48, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0006910709999999999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8db'), "user_id"=>49, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000379161s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8dc'), "user_id"=>50, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000413296s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8dd'), "user_id"=>51, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000427487s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8de'), "user_id"=>52, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00035713499999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8df'), "user_id"=>53, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000322864s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e0'), "user_id"=>54, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00034173900000000003s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e1'), "user_id"=>55, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001265961s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e2'), "user_id"=>56, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00036057s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e3'), "user_id"=>57, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00036488499999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e4'), "user_id"=>58, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00032254399999999997s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e5'), "user_id"=>59, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00035357s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e6'), "user_id"=>60, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000362881s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e7'), "user_id"=>61, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000495701s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e8'), "user_id"=>62, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00036039400000000005s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8e9'), "user_id"=>63, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000332452s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ea'), "user_id"=>64, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000586994s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8eb'), "user_id"=>65, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000395385s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ec'), "user_id"=>66, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000395034s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ed'), "user_id"=>67, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00043633500000000004s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ee'), "user_id"=>68, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000342509s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ef'), "user_id"=>69, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000325544s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f0'), "user_id"=>70, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000327126s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f1'), "user_id"=>71, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000359047s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f2'), "user_id"=>72, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000352893s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f3'), "user_id"=>73, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00032289099999999995s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f4'), "user_id"=>74, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00031560999999999997s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f5'), "user_id"=>75, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00032083700000000003s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f6'), "user_id"=>76, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00036354400000000004s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f7'), "user_id"=>77, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00033777s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f8'), "user_id"=>78, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000329299s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8f9'), "user_id"=>79, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000360925s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8fa'), "user_id"=>80, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000563697s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8fb'), "user_id"=>81, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00043862999999999997s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8fc'), "user_id"=>82, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000393499s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8fd'), "user_id"=>83, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00035521099999999997s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8fe'), "user_id"=>84, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 9.297e-06s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d8ff'), "user_id"=>85, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000412949s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d900'), "user_id"=>86, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000624564s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d901'), "user_id"=>87, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000349681s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d902'), "user_id"=>88, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001351316s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d903'), "user_id"=>89, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000381946s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d904'), "user_id"=>90, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000262406s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d905'), "user_id"=>91, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000525732s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d906'), "user_id"=>92, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000340469s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d907'), "user_id"=>93, "movie_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000491205s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d908'), "user_id"=>94, "movie_id"=>1, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000569589s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d909'), "user_id"=>95, "movie_id"=>1, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0006362890000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d90a'), "user_id"=>96, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000456904s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d90b'), "user_id"=>97, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000387278s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d90c'), "user_id"=>98, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005541340000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d90d'), "user_id"=>99, "movie_id"=>1, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0006078320000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582be4cce8cb91437831d90e'), "user_id"=>100, "movie_id"=>1, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0007659839999999999s
+MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"ratings", "filter"=>{"movie_id"=>1}}
+MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.00089567s
+MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"ratings", "filter"=>{"movie_id"=>1}}
+MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.000837827s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{"movie_id"=>1}}, {"$match"=>{"movie_id"=>1, "rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.0008692289999999999s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{"movie_id"=>1}}, {"$match"=>{"movie_id"=>1, "rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.000741069s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{"movie_id"=>2}}, {"$match"=>{"movie_id"=>2, "rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.000468712s
+MONGODB | Adding localhost:27017 to the cluster.
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{"movie_id"=>1}}, {"$match"=>{"movie_id"=>1, "rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.001263005s
+MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"ratings", "filter"=>{"movie_id"=>1}, "skip"=>2, "limit"=>2}
+MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.000523676s
+MONGODB | localhost:27017 | dev_mongoid.killCursors | STARTED | {"killCursors"=>"ratings", "cursors"=>[15125135391715370]}
+MONGODB | localhost:27017 | dev_mongoid.killCursors | SUCCEEDED | 0.000112364s
+MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"ratings", "filter"=>{"movie_id"=>1}, "skip"=>2, "limit"=>2}
+MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.000492943s
+MONGODB | localhost:27017 | dev_mongoid.killCursors | STARTED | {"killCursors"=>"ratings", "cursors"=>[15139697272420877]}
+MONGODB | localhost:27017 | dev_mongoid.killCursors | SUCCEEDED | 0.000246482s
+MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"ratings", "filter"=>{"movie_id"=>1}, "skip"=>4, "limit"=>2}
+MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.000541107s
+MONGODB | localhost:27017 | dev_mongoid.killCursors | STARTED | {"killCursors"=>"ratings", "cursors"=>[15153568673349969]}
+MONGODB | localhost:27017 | dev_mongoid.killCursors | SUCCEEDED | 0.000116369s
+MONGODB | localhost:27017 | dev_mongoid.count | STARTED | {"count"=>"ratings", "query"=>{"movie_id"=>1}}
+MONGODB | localhost:27017 | dev_mongoid.count | SUCCEEDED | 0.00051917s
+MONGODB | localhost:27017 | dev_mongoid.find | STARTED | {"find"=>"ratings", "filter"=>{}, "limit"=>-1}
+MONGODB | localhost:27017 | dev_mongoid.find | SUCCEEDED | 0.000335136s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$rating"}, "avg"=>{"$avg"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.001035096s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$rating"}, "avg"=>{"$avg"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.000654638s
+MONGODB | localhost:27017 | dev_mongoid.distinct | STARTED | {"distinct"=>"ratings", "key"=>"movie_id", "query"=>{"user_id"=>1}}
+MONGODB | localhost:27017 | dev_mongoid.distinct | SUCCEEDED | 0.0008441919999999999s
+MONGODB | localhost:27017 | dev_mongoid.distinct | STARTED | {"distinct"=>"ratings", "key"=>"movie_id", "query"=>{}}
+MONGODB | localhost:27017 | dev_mongoid.distinct | SUCCEEDED | 0.000499963s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340db'), "movie_id"=>2, "user_id"=>1, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0006471150000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340dc'), "movie_id"=>2, "user_id"=>2, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000770797s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340dd'), "movie_id"=>2, "user_id"=>3, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00032561099999999996s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340de'), "movie_id"=>2, "user_id"=>4, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000594078s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340df'), "movie_id"=>2, "user_id"=>5, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000433141s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e0'), "movie_id"=>2, "user_id"=>6, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000525471s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e1'), "movie_id"=>2, "user_id"=>7, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000333748s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e2'), "movie_id"=>2, "user_id"=>8, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000591939s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e3'), "movie_id"=>2, "user_id"=>9, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000438185s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e4'), "movie_id"=>2, "user_id"=>10, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000655298s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e5'), "movie_id"=>2, "user_id"=>11, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005905000000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e6'), "movie_id"=>2, "user_id"=>12, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000449061s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e7'), "movie_id"=>2, "user_id"=>13, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000473765s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e8'), "movie_id"=>2, "user_id"=>14, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000547702s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340e9'), "movie_id"=>2, "user_id"=>15, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000739488s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340ea'), "movie_id"=>2, "user_id"=>16, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005596069999999999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340eb'), "movie_id"=>2, "user_id"=>17, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001300774s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340ec'), "movie_id"=>2, "user_id"=>18, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00046840900000000003s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340ed'), "movie_id"=>2, "user_id"=>19, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000550057s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340ee'), "movie_id"=>2, "user_id"=>20, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000463569s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340ef'), "movie_id"=>2, "user_id"=>21, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005319190000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f0'), "movie_id"=>2, "user_id"=>22, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00033542399999999997s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f1'), "movie_id"=>2, "user_id"=>23, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00039024s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f2'), "movie_id"=>2, "user_id"=>24, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000556751s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f3'), "movie_id"=>2, "user_id"=>25, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0007417810000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f4'), "movie_id"=>2, "user_id"=>26, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000336782s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f5'), "movie_id"=>2, "user_id"=>27, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000465024s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f6'), "movie_id"=>2, "user_id"=>28, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000442298s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f7'), "movie_id"=>2, "user_id"=>29, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000394382s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f8'), "movie_id"=>2, "user_id"=>30, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000541238s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340f9'), "movie_id"=>2, "user_id"=>31, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000471482s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340fa'), "movie_id"=>2, "user_id"=>32, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000657991s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340fb'), "movie_id"=>2, "user_id"=>33, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000406491s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340fc'), "movie_id"=>2, "user_id"=>34, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000620259s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340fd'), "movie_id"=>2, "user_id"=>35, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000577847s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340fe'), "movie_id"=>2, "user_id"=>36, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000650344s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a340ff'), "movie_id"=>2, "user_id"=>37, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000879385s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34100'), "movie_id"=>2, "user_id"=>38, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000836665s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34101'), "movie_id"=>2, "user_id"=>39, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000417995s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34102'), "movie_id"=>2, "user_id"=>40, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000463725s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34103'), "movie_id"=>2, "user_id"=>41, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005330010000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34104'), "movie_id"=>2, "user_id"=>42, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0007366209999999999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34105'), "movie_id"=>2, "user_id"=>43, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000678109s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34106'), "movie_id"=>2, "user_id"=>44, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000320932s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34107'), "movie_id"=>2, "user_id"=>45, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000829781s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34108'), "movie_id"=>2, "user_id"=>46, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00097258s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34109'), "movie_id"=>2, "user_id"=>47, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0006425700000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3410a'), "movie_id"=>2, "user_id"=>48, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000440999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3410b'), "movie_id"=>2, "user_id"=>49, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000623188s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3410c'), "movie_id"=>2, "user_id"=>50, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000597696s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3410d'), "movie_id"=>2, "user_id"=>51, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000593288s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3410e'), "movie_id"=>2, "user_id"=>52, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00054045s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3410f'), "movie_id"=>2, "user_id"=>53, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000591083s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34110'), "movie_id"=>2, "user_id"=>54, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00048973s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34111'), "movie_id"=>2, "user_id"=>55, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000454803s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34112'), "movie_id"=>2, "user_id"=>56, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00048694900000000003s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34113'), "movie_id"=>2, "user_id"=>57, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000751456s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34114'), "movie_id"=>2, "user_id"=>58, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000496512s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34115'), "movie_id"=>2, "user_id"=>59, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000477418s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34116'), "movie_id"=>2, "user_id"=>60, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000564792s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34117'), "movie_id"=>2, "user_id"=>61, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0007259720000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34118'), "movie_id"=>2, "user_id"=>62, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000655244s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34119'), "movie_id"=>2, "user_id"=>63, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000501834s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3411a'), "movie_id"=>2, "user_id"=>64, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000472949s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3411b'), "movie_id"=>2, "user_id"=>65, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001776797s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3411c'), "movie_id"=>2, "user_id"=>66, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005549859999999999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3411d'), "movie_id"=>2, "user_id"=>67, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005066340000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3411e'), "movie_id"=>2, "user_id"=>68, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000717087s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3411f'), "movie_id"=>2, "user_id"=>69, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000501626s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34120'), "movie_id"=>2, "user_id"=>70, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000356168s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34121'), "movie_id"=>2, "user_id"=>71, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000551724s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34122'), "movie_id"=>2, "user_id"=>72, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0005533990000000001s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34123'), "movie_id"=>2, "user_id"=>73, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000350535s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34124'), "movie_id"=>2, "user_id"=>74, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000350011s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34125'), "movie_id"=>2, "user_id"=>75, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000565134s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34126'), "movie_id"=>2, "user_id"=>76, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000766973s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34127'), "movie_id"=>2, "user_id"=>77, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000771753s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34128'), "movie_id"=>2, "user_id"=>78, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000417192s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34129'), "movie_id"=>2, "user_id"=>79, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000563439s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3412a'), "movie_id"=>2, "user_id"=>80, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000621719s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3412b'), "movie_id"=>2, "user_id"=>81, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000647912s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3412c'), "movie_id"=>2, "user_id"=>82, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00043774899999999997s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3412d'), "movie_id"=>2, "user_id"=>83, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00037263300000000004s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3412e'), "movie_id"=>2, "user_id"=>84, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.003486327s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3412f'), "movie_id"=>2, "user_id"=>85, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000833145s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34130'), "movie_id"=>2, "user_id"=>86, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.002971315s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34131'), "movie_id"=>2, "user_id"=>87, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000669614s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34132'), "movie_id"=>2, "user_id"=>88, "rating"=>1}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0006050459999999999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34133'), "movie_id"=>2, "user_id"=>89, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00078126s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34134'), "movie_id"=>2, "user_id"=>90, "rating"=>4}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000516634s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34135'), "movie_id"=>2, "user_id"=>91, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000556104s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34136'), "movie_id"=>2, "user_id"=>92, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000914218s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34137'), "movie_id"=>2, "user_id"=>93, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000703874s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34138'), "movie_id"=>2, "user_id"=>94, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000559037s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a34139'), "movie_id"=>2, "user_id"=>95, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001076975s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3413a'), "movie_id"=>2, "user_id"=>96, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0025171819999999998s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3413b'), "movie_id"=>2, "user_id"=>97, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001660514s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3413c'), "movie_id"=>2, "user_id"=>98, "rating"=>2}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.0006908229999999999s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3413d'), "movie_id"=>2, "user_id"=>99, "rating"=>5}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000549987s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"ratings", "documents"=>[{"_id"=>BSON::ObjectId('582c0398e8cb914387a3413e'), "movie_id"=>2, "user_id"=>100, "rating"=>3}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.000552111s
+MONGODB | localhost:27017 | dev_mongoid.distinct | STARTED | {"distinct"=>"ratings", "key"=>"movie_id", "query"=>{}}
+MONGODB | localhost:27017 | dev_mongoid.distinct | SUCCEEDED | 0.000575462s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$rating"}, "avg"=>{"$avg"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.000665937s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"rating"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"rating", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$rating"}, "min"=>{"$min"=>"$rating"}, "sum"=>{"$sum"=>"$rating"}, "avg"=>{"$avg"=>"$r...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.0006017059999999999s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"[{\"$group\"=>{\"_id\"=>\"$movie_id\", \"average\"=>{\"$avg\"=>\"$rating\"}}}]"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"[{\"$group\"=>{\"_id\"=>\"$movie_id\", \"average\"=>{\"$avg\"=...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.0006871129999999999s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"[{nil=>{nil=>1}}]"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"[{nil=>{nil=>1}}]", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$[{nil=>{nil=>1}}]"}, "min"=>{"$min"=>"$[{nil=>{nil=>1}}]"}, "su...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.000483256s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"[{nil=>{\"movie_id\"=>1}}]"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"[{nil=>{\"movie_id\"=>1}}]", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$[{nil=>{\"movie_id\"=>1}}]"}, "min"=>{"$min"=...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.001548406s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"movie_id"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"movie_id", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"$movie_id"}, "min"=>{"$min"=>"$movie_id"}, "sum"=>{"$sum"=>"$movie_id"}, "avg"=>{"...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.001061719s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"{:match=>{:movie_id=>1}}"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"{:match=>{:movie_id=>1}}", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"${:match=>{:movie_id=>1}}"}, "min"=>{"$min"=>"${:m...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.0006694180000000001s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"{:movie_id=>1}"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"{:movie_id=>1}", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"${:movie_id=>1}"}, "min"=>{"$min"=>"${:movie_id=>1}"}, "sum"=>{"$sum"=...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.000682523s
+MONGODB | localhost:27017 | dev_mongoid.aggregate | STARTED | {"aggregate"=>"ratings", "pipeline"=>[{"$match"=>{}}, {"$match"=>{"{:avg=>:ratings}"=>{"$exists"=>true}}}, {"$group"=>{"_id"=>"{:avg=>:ratings}", "count"=>{"$sum"=>1}, "max"=>{"$max"=>"${:avg=>:ratings}"}, "min"=>{"$min"=>"${:avg=>:ratings}"}, "sum"=>...
+MONGODB | localhost:27017 | dev_mongoid.aggregate | SUCCEEDED | 0.000637404s
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT `movies`.* FROM `movies` WHERE `movies`.`id` IN (1, 2)[0m
+  [1m[35mMovie Load (0.5ms)[0m  SELECT `movies`.* FROM `movies` WHERE `movies`.`id` IN (1, 2)
