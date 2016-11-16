@@ -24,12 +24,6 @@ class OtcarpController < ApplicationController
     show_response(Movie.add_crew(params))
   end
 
-  def add_user
-  end
-
-  def search_for_user
-  end
-
   def get_movie_ratings
   end
 

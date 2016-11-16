@@ -20256,3 +20256,88 @@ MONGODB | localhost:27017 | dev_mongoid.killCursors | SUCCEEDED | 7.5882e-05s
   [1m[35mMovie Load (0.6ms)[0m  SELECT `movies`.* FROM `movies`
   [1m[36mMovie Load (0.7ms)[0m  [1mSELECT  `movies`.* FROM `movies` WHERE `movies`.`id` = 1 LIMIT 10 OFFSET 10[0m
   [1m[35mMovie Load (0.6ms)[0m  SELECT  `movies`.* FROM `movies` WHERE `movies`.`id` = 1 LIMIT 10 OFFSET 0
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (1.2ms)[0m  DROP TABLE `users`
+  [1m[36mSQL (1.2ms)[0m  [1mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20161115174538'[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'movies'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `movies`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'people'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `people`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'persons_movies'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `persons_movies`
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (32.0ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `email` varchar(254), `age` int(11), `gender` varchar(10), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20161115174538')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'movies'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `movies`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'people'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `people`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'persons_movies'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `persons_movies`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'dev_otcarp_db'
+  AND fk.table_name = 'users'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `users`
+MONGODB | Adding localhost:27017 to the cluster.
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"reviews", "documents"=>[{"_id"=>BSON::ObjectId('582bc8e0e8cb911d123063c3'), "user_id"=>1, "movie_id"=>1, "review"=>"THis is a whole new world.\nI am not sure of anything anymore", "vote"=>0}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.001039683s
+MONGODB | localhost:27017 | dev_mongoid.insert | STARTED | {"insert"=>"reviews", "documents"=>[{"_id"=>BSON::ObjectId('582bc8eae8cb911d123063c4'), "user_id"=>1, "movie_id"=>1, "review"=>"THis is a whole new world.\nI am not sure of anything anymore", "vote"=>0}], "ordered"=>true}
+MONGODB | localhost:27017 | dev_mongoid.insert | SUCCEEDED | 0.00043644s
