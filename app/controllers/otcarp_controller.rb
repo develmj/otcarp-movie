@@ -25,9 +25,13 @@ class OtcarpController < ApplicationController
   end
 
   def get_movie_ratings
+    required(params, :title)
+    show_response(Movie.get_average_ratings(params))
   end
 
   def get_movie_reviews
+    required(params, :title)
+    show_response(Movie.get_reviews(params))
   end
 
 end

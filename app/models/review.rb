@@ -25,7 +25,7 @@ class Review
       total_count = payload.count
     end
 
-    return { status: true, msg: "#{total_count} reviews found!", payload: payload, current_page: cur_page, page_size: page_size }
+    return { status: true, msg: "#{total_count} reviews found!", data: payload, current_page: cur_page, page_size: page_size }
   end
 
 end

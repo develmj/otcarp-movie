@@ -30,9 +30,13 @@ class UserpartController < ApplicationController
   end
 
   def upvote_review
+    required(params, :email, :title)
+    show_response(User.vote_review(params,:up))
   end
 
   def downvote_review
+    required(params, :email, :title)
+    show_response(User.vote_review(params,:down))
   end
 
 end

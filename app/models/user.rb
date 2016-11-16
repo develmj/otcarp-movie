@@ -70,4 +70,19 @@ class User < ActiveRecord::Base
       return { status: nil, msg: "No such user found. Can't recommend anything" }
     end
   end
+
+  def self.vote_review(params, vote_type = :up)
+    return { status: nil, msg: "Need some detail to search for the review!" } if params.to_a.empty or not params.is_a?(Hash)
+    return { status: nil, msg: "Need some detail to search for the review!" } unless (params[:email] and params[:title])
+
+    movie = Movie.find_by_title(params[:title])
+    user = User.find_by_email(params[:email])
+
+    if movie and user
+      resp = Rating.update_review(movie.id, user.id, vote_type)
+      return { status: nil, msg: "Error in #{vote_type.to_s}voting the review" } unless resp
+    else
+      return { status: nil, msg: "Did not find either user of movie" }
+    end
+  end
 end
